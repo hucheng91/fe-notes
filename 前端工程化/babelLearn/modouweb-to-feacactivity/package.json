@@ -1,0 +1,43 @@
+{
+  "name": "react-to-vue",
+  "version": "1.0.11",
+  "description": "engine that transforms React component to Vue component",
+  "scripts": {
+    "prepublish": "npm run start",
+    "start": "babel ./src/ -d ./lib/",
+    "dev": "babel ./src/ -d ./lib/ -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "rtv": "bin/rtv"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/vicwang163/react-to-vue.git"
+  },
+  "keywords": [
+    "react",
+    "vue",
+    "transformation"
+  ],
+  "author": "vic.wang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vicwang163/react-to-vue/issues"
+  },
+  "homepage": "https://github.com/vicwang163/react-to-vue#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/generator": "^7.4.0",
+    "@babel/parser": "^7.4.3",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/traverse": "^7.4.3",
+    "chalk": "^2.3.0",
+    "commander": "^2.13.0",
+    "prettier-eslint": "^8.7.0"
+  }
+}

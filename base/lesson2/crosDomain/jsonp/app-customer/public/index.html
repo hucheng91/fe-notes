@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        button{
+            color: #fff;
+            background-color: #28a745;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+        }
+        .line-div{
+            padding: 10px;
+        }
+        input{
+            margin-right: 10px;
+            height: 28px;
+            width: 180px;
+        }
+        .container-div{
+            border: 1px solid #363636;
+            border-radius: 8px;
+        }
+        .parent-div{
+            padding: 10px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<div style="margin: 0 auto; width: 900px;  border: white 1px;">
+    <div class="parent-div">
+        <h1>jsonp</h1>
+        <div class="container-div">
+                <div class="line-div">
+                        <button class="1_button" type="button">跨域请求</button>
+                    </div>
+            <div class="line-div">
+                <button class="2_button" type="button">jsonp</button>
+            </div>
+            <div class="line-div">
+                    <input class="3_input" type="text"><button class="3_button" type="button">jsonp带来的问题</button>
+                </div>
+        </div>
+    </div>
+</div> 
+
+<script type="application/javascript" src="/javascripts/jquery.js"></script>
+<script type="application/javascript" src="/javascripts/test.js"></script>
+<script type="application/javascript">
+function callback(data) {
+        console.log(data);
+     }
+</script>
+<script src="http://127.0.0.1:3001"></script>
+<script src="http://127.0.0.1:3001?callback=<script>alert(123)</script>"></script>
+<script>
+    $(".1_button").bind("click",function(){
+        normalAjax();
+    });
+    $(".2_button").bind("click",function(){
+        jsonpAjax();
+    });
+    $(".3_button").bind("click",function(){
+        jsonpProbrem($(".3_input").val());
+    });
+</script>
+<!--一jsonp 请求-->
+<script type="application/javascript">
+    function normalAjax(){
+        $.ajax({
+        dataType: 'json',
+        url: 'http://localhost:3001',
+        success: function(data) {
+        }
+        });
+    }
+ //   原理: 浏览器是允许 script 跨域的，所以将请求模拟成一个 script 标签，将数据放在 回调函数里。
+
+//注意点: 由于 script 标签  是get请求方式，所以jsonp 只支持 get请求
+    function jsonpAjax(){
+        $.ajax({
+        dataType: 'jsonp',
+        jsonp: 'callback',
+        jsonpCallback: 'callback',
+        url: 'http://localhost:3001',
+        success: function(data) {
+        }
+        });
+    }
+    function jsonpProbrem(a){
+        $.ajax({
+        dataType: 'jsonp',
+        jsonp: 'callback',
+        jsonpCallback: 'callback',
+        url: 'http://localhost:3001/user?id='+a,
+        success: function(data) {
+        }
+        });
+    }
+    myJsonpAjax({
+        jsonp: 'callback', 
+        url: 'http://localhost:3001/user?id='+a
+     }
+    );
+    /**
+     * @param params eg: {url:"http://xx.com",jsonp:callback}
+        * @param url
+        * @param jsonp
+     */
+    function myJsonpAjax(params){
+
+      var callbackName = params.jsonp; 
+      var head = document.getElementsByTagName('head')[0]; 
+      // 设置传递给后台的回调参数名 
+      params.data['callback'] = callbackName; 
+      var data = "callback="+ callbackName; 
+      var script = document.createElement('script'); 
+      head.appendChild(script);  
+      //创建jsonp回调函数 
+      window[callbackName] = function(json) { 
+       head.removeChild(script); 
+       window[callbackName] = null; 
+       params.success && params.success(json); 
+      };  
+      //发送请求 
+      script.src = params.url + '?' + data; 
+    }
+        
+    
+     
+</script>
+<script type="application/javascript"></script>
+</body>
+</html>

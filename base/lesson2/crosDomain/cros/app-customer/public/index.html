@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        button{
+            color: #fff;
+            background-color: #28a745;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+        }
+        .line-div{
+            padding: 10px;
+        }
+        input{
+            margin-right: 10px;
+            height: 28px;
+            width: 180px;
+        }
+        .container-div{
+            border: 1px solid #363636;
+            border-radius: 8px;
+        }
+        .parent-div{
+            padding: 10px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<div style="margin: 0 auto; width: 900px;  border: white 1px;">
+    <div class="parent-div">
+        <h1>cros</h1>
+        <div class="container-div">
+                <div class="line-div">
+                        <button class="1_button" type="button">跨域请求</button>
+                    </div>
+            <div class="line-div">
+                <button class="2_button" type="button">没有option的cros</button>
+            </div>
+            <div class="line-div">
+                    <button class="3_button" type="button">不能自定义 headers</button>
+            </div>
+            <div class="line-div">
+                    <input type="file" id="file_attachment"  name="file"/> <button class="4_button" type="button">有option的cros</button>
+            </div>
+            <div class="line-div">
+                  <button class="4_button" type="button">fetch</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="application/javascript" src="/javascripts/jquery.js"></script>
+<script>
+    $(".1_button").bind("click",function(){
+        normalAjax();
+    });
+    $(".2_button").bind("click",function(){
+        crosAjax2();
+    });
+    $(".3_button").bind("click",function(){
+        crosAjax3();
+    });
+    $(".4_button").bind("click",function(){
+        crosAjax4();
+    });
+</script>
+<!--一jsonp 请求-->
+<script type="application/javascript">
+    function normalAjax(){
+        $.ajax({
+        dataType: 'json',
+        url: 'http://localhost:3001',
+        success: function(data) {
+        }
+        });
+    }
+
+    function crosAjax2(){
+        $.ajax({
+        url: 'http://localhost:3001',
+        success: function(data) {
+            console.log(data);
+        }
+        });
+    }
+    // 不允许 添加 自定义的 header ,
+    function crosAjax3(a){
+        $.ajax({
+        headers: {"x-post-code": "hc"},    
+        url: 'http://localhost:3001',
+        success: function(data) {
+            console.log(data);
+        }
+        });
+    }
+    function crosAjax4(a){
+        $.get("https://dts.saic-gm.com/cs/file/token?appId=6C9FPwRbc32").done((token)=>{
+            var file = $("#file_attachment")[0].files[0];
+        crosHavaOption({
+            name:"file",
+            files:[file],
+            url:"https://dts.saic-gm.com/cs/file/frontend/upload",
+            token: token,
+            method:"post"
+        });
+        });
+       
+    }
+    // 会产生 option 请求
+    function crosHavaOption(option){
+        let xhr = new XMLHttpRequest(),
+        formData = new FormData();
+        for(let i = 0; i < option.files.length; i++) {
+            formData.append(option.name, option.files[i]);
+        }
+        formData.append("token",option.token);
+        // xhr.upload.addEventListener('progress', (e) => {
+        //     console.log((e.loaded * 100) / e.total);
+        //     // if(e.lengthComputable) {
+        //     //     this.progress = Math.round((e.loaded * 100) / e.total);
+        //     // }
+        //     }, false);
+
+        xhr.onreadystatechange = () => {
+            console.log(xhr);
+        };
+        xhr.open(option.method, option.url, true);
+        xhr.send(formData);
+    }
+    
+     
+</script>
+<script type="application/javascript"></script>
+</body>
+</html>

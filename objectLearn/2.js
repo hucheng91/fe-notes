@@ -1,0 +1,1 @@
+let a = {id:1,name:2}

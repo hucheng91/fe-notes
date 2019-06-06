@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>indexedDB demo</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="app">
+        <div class="main">
+            <div class="v-form">
+                <input type="text" class="v-input" placeholder="请输入姓名" name="username" >
+                <input type="text" class="v-input" placeholder="请输入年龄" name="age" >
+                <input type="text" class="v-input" placeholder="请输入邮箱" name="email" >
+                <button type="text" class="v-btn"  onclick="submit()">提交</button>
+            </div>
+            <table class="table">
+                <thead>
+                    <th>#</th>
+                    <th>用户名</th>
+                    <th>年龄</th>
+                    <th>邮箱</th>
+                    <th>操作</th>
+                </thead>
+                <!--<tr v-for="(item,i) in dbData" :key="item.id">-->
+                    <!--<td v-html="i+1"></td>-->
+                    <!--<td v-html="item.username"></td>-->
+                    <!--<td v-html="item.age"></td>-->
+                    <!--<td v-html="item.email"></td>-->
+                    <!--<td>-->
+                        <!--<button class="edit" @click="edit(i)">编辑</button>-->
+                        <!--<button class="del" @click="deleteOneData(item.id)">删除</button>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            </table>
+        </div>
+    </div>
+    <script>
+        var id = 1;
+        var storeMap = {}; //存储数据
+        function submit(){
+            var username = document.querySelector("input[name='username']").value;
+            var age = document.querySelector("input[name='age']").value;
+            var email = document.querySelector("input[name='email']").value;
+            var dataKey = randomWord(false, 32, 32);
+            storeMap[dataKey] = {id:id,username: username,age: age,email:email};
+            id ++;
+
+            initEle(dataKey,storeMap[dataKey]);
+
+        }
+
+        function initEle(dataKey,data){
+
+            var tr = document.createElement("tr");
+            tr.setAttribute("data-key",dataKey);
+            tr.setAttribute("data-user",JSON.stringify(data));
+            tr.innerHTML =
+                "<td>"+data.id+"</td>" +
+                "<td>"+data.username+"</td>" +
+                "<td>"+data.age+"</td>" +
+                "<td>"+data.email+"</td>"+
+                "<td>" +
+                "<button class='edit' onclick='edit(this)'>编辑</button>" +
+                "<button class='del' onclick='del(this)'>删除</button>" +
+                "</td>";
+            document.querySelector(".table").appendChild(tr);
+        }
+
+
+        function edit($event){
+            var dataKey = $event.parentElement.parentElement.getAttribute("data-key");
+            console.log(dataKey);
+            var data = storeMap[dataKey];
+
+            document.querySelector("input[name='username']").value = data.username;
+            document.querySelector("input[name='age']").value = data.age;
+            document.querySelector("input[name='email']").value = data.email;
+        }
+        function del($event){
+            var dataKey = $event.parentElement.parentElement.getAttribute("data-key");
+            console.log(dataKey);
+        }
+
+
+        function  randomWord(randomFlag, min, max) {
+            var str = "",
+                range = min,
+                arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+            // 随机产生
+            if (randomFlag) {
+                range = Math.round(Math.random() * (max - min)) + min;
+            }
+            for (var i = 0; i < range; i++) {
+                pos = Math.round(Math.random() * (arr.length - 1));
+                str += arr[pos];
+            }
+            return str.toLowerCase();
+        }
+    </script>
+</body>
+</html>

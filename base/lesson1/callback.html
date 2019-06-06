@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"  href="/assets/bootstrap/css/bootstrap.min.css">
+    <style>
+        button{
+            color: #fff;
+            background-color: #28a745;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+        }
+        .line-div{
+            padding: 10px;
+        }
+        input{
+            margin-right: 10px;
+            height: 28px;
+            width: 180px;
+        }
+        .container-div{
+            border: 1px solid #363636;
+            border-radius: 8px;
+        }
+        .parent-div{
+            padding: 10px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<div style="margin: 0 auto; width: 900px; padding-top: 200px; border: white 1px;">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">callback 学习</h3>
+        </div>
+        <div class="panel-body">
+            <div class="btn-group" role="group" aria-label="...">
+                <button id="alert_btn" type="button" class="btn btn-success">alert框</button>
+                <button id="warning_btn" type="button" class="btn btn-warning">确认框</button>
+                <button id="danger_btn" type="button" class="btn btn-danger">错误框</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!--一般写法遇到的问题-->
+<script src="/assets/jquery.js"></script>
+<script type="application/javascript" src="/assets/bootstrap/js/bootstrap.js"></script>
+<script type="application/javascript" src="/assets/sweetalert.min.js"></script>
+<script src="/base/lesson1/callback.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/app/**/*.js
+/app/**/*.js.map
+/app/*.js
+/app/*.js.map
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+
+# IDE - VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+#System Files
+.DS_Store
+Thumbs.db
+
+
+app/*.js
+app/*.map
+#package-lock.json
+#yarn.lock
+#.gitignore
+#proxy.conf.json
+#tslint.json
+/Users/hc/project/javascriptLearn/base/lesson2/crosDomain/cros/app-customer/node_modules
+/Users/hc/project/javascriptLearn/base/lesson2/crosDomain/cros/app-server/node_modules
+/Users/hc/project/javascriptLearn/base/lesson2/crosDomain/jsonp/app-customer/node_modules
+/Users/hc/project/javascriptLearn/base/lesson2/crosDomain/jsonp/app-server/node_modules
+/.history
+oauth/cookie/a_hucheng_com/node_modules/
+oauth/cookie/b_hucheng_com/node_modules/
+oauth/cookie/mybaidu_com/node_modules/
+oauth/JWT/node_modules/
+oauth/oauth2/node_modules/
+oauth/qrcode/node_modules/
+oauth/oauth2/.history/
+前端工程化/babelLearn/babel-preset/node_modules/
+前端工程化/babelLearn/babel-polyfill/node_modules/
+前端工程化/babelLearn/babel-runtime/node_modules/
+前端工程化/babelLearn/babel-preset/node_modules/@babel/generator/lib/generators/template-literals.js
+前端工程化/webpack/sample/node_modules/
+前端工程化/babelLearn/ast-babylon/node_modules/
+前端工程化/babelLearn/sample-babel-plugin/node_modules/
+前端工程化/webpack/tree-sharking/node_modules/
