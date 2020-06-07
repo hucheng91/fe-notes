@@ -1,8 +1,16 @@
+<!--
+ * @Author: hucheng
+ * @Date: 2019-06-09 21:17:23
+ * @Description: here is des
+ -->
+
 # cookie,session 认证
 
-~~如果对  cookie 已经很熟悉了，可以跳过，这篇主要是为后面的做铺垫~~
+cookie 这部分，大家要着重注意 domain 部分，这个是我们前端开发经常会在这个点遇到问题的，如果你不熟，我是强烈建议你把我留的 demo 在本地跑一下，好好理解下
+
 ## what is cookie
-网上已经说烂了，还不知道可以看MDN https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies
+Cookie，有时也用其复数形式 Cookies，指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据
+具体可以看MDN https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies
 
 ## 概要
  - cookie 组成
@@ -37,6 +45,9 @@
     
     ```
 划重点 **Domain 的这种属性 可以用来 子域名之间的通信**，大部分二级域名之间跳转都是使用这个属性
+要是你对这块不熟悉，没有实操过，强烈建议把我的写的demo 跑跑，我在工作中发现，我给有的同事讲过这个，当时他也懂了，但遇到 domain 问题，还是抓瞎
+
+现在前后端开发大部分都是 前后端分离开发，分开部署，假设 前端页面在   `a.hucheng.com`,api地址在`test.api.com`(典型的 CORS 请求) 有的菜鸡后端设计 API 的时候还是用cookie 来做认证，这个时候你就要注意了，他设置的他认证的那个cookie domain 在 `test.api.com` ,这个时候， chrome 是默认不显示的非当前域名下的 cookie ，而且 CORS 默认是不携带 cookie 的，好多人被这个知识点坑过,要注意啦，这种 跨域 cookie 认证，需要服务端对请求头做一些设置，具体处理办法，网上有，这里我就提一下
 - **Path**   
  设置路径cookie 生效路径  
 - **Max-Age // 过期时间** 
@@ -80,7 +91,7 @@
 怎么办？ 有没有啥办法，我不存这些用户 sessionId,让浏览器自己管理起来么，**JWT 小老弟**，要出场了,下回讲JWT
 
 ## Demo
-[放到github上了,有cookie 每个属性操作例子](https://github.com/hucheng91/frontend-note/tree/master/oauth/cookie)
+[放到github上了,有cookie 每个属性操作例子](https://github.com/hucheng91/digging-info-oauth)
 Node.js写的，有清晰的注释，没写过Node.js的前端er也能看明白的，如果你平常对 cookie 的的理解都来源于文章，没实操过，建议把 Demo 自己来一遍
 ## 参考资料
 [cookie MDN介绍](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies)
